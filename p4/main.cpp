@@ -122,6 +122,7 @@ public:
     Tensor convolve(const Tensor& input) {
         auto [input_rows, input_cols] = input.shape();
 
+        //TO-DO: Implement better error handling
         if (input_rows < kernel_size || input_cols < kernel_size) {
             std::cerr << "Erro: O tamanho do kernel (" << kernel_size << ") é maior que o tamanho do input (" << input_rows << ", " << input_cols << ").\n";
             exit(EXIT_FAILURE);
@@ -160,6 +161,7 @@ public:
         layers.push_back(layer);
     }
 
+    // Think about further improvments in this method
     Tensor forward(const Tensor& input) {
         Tensor output = input;
         for (Layer* layer : layers) {
@@ -175,6 +177,7 @@ public:
         }
     }
 
+    // Maybe there is a better approach to dynamically delete the layers? Ask Nicola about it
     ~Model() {
         for (Layer* layer : layers) {
             delete layer;
@@ -183,6 +186,7 @@ public:
 };
 
 int main() {
+    // Simple test case, i didn't implement the backpropagation yet
     std::vector<std::vector<double>> input_data = {
         {1, 0, 1, 0, 1},
         {0, 1, 0, 1, 0},
@@ -209,3 +213,5 @@ int main() {
 
     return 0;
 }
+
+// I guess i've missed some point, but i need to read a file? I'm not sure about it. I'll ask Nicola about it.
